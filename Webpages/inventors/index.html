@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inventor Selector</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+    padding: 40px;
+  }
+
+  select {
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+
+  .inventor-box {
+    width: 850px;
+    display: flex;
+    gap: 25px;
+    margin: 0 auto;
+    padding: 25px;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+  }
+.photo {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #ccc;
+    flex-shrink: 0;
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .details {
+    flex: 1;
+    text-align: left;
+  }
+
+  .details h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  .details h3 {
+    margin: 6px 0 15px;
+    font-size: 20px;
+    color: #555;
+  }
+
+  .details p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Select a Programming Language Inventor</h1>
+
+<select id="selectPerson" onchange="showPerson()">
+  <option value="">-- Select Inventor --</option>
+  <option value="ritchie">Dennis Ritchie</option>
+  <option value="stroustrup">Bjarne Stroustrup</option>
+  <option value="gosling">James Gosling</option>
+  <option value="guido">Guido van Rossum</option>
+  <option value="rasmus">Rasmus Lerdorf</option>
+  <option value="eich">Brendan Eich</option>
+  <option value="matz">Yukihiro Matsumoto</option>
+  <option value="anders">Anders Hejlsberg</option>
+  <option value="ken">Ken Thompson</option>
+  <option value="lattner">Chris Lattner</option>
+</select>
+
+<div id="output" style="display:none;">
+  <div class="inventor-box">
+      <div class="photo">
+        <img id="pPhoto" src="">
+      </div>
+      <div class="details">
+        <h2 id="pName"></h2>
+        <h3 id="pLang"></h3>
+        <p id="pDesc"></p>
+      </div>
+  </div>
+</div>
+<script>
+  const inventors = {
+    ritchie: {
+      photo: "https://upload.wikimedia.org/wikipedia/commons/2/23/Dennis_Ritchie_2011.jpg",
+      name: "Dennis Ritchie",
+      lang: "Inventor of C Language",
+      desc: "Created the C programming language and co-developed the UNIX operating system."
+    },
+    stroustrup: {
+      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRj6I3QLMRyctJr0Br7lzv3uZXWQBZj4Bs44Gu3RKBaNmPJ2f-bOXUu77h8_6d9ldq4XatUCvUuMxqlweHjkwAtaN6imubaOuo2a69SsehJg&s=10",
+      name: "Bjarne Stroustrup",
+      lang: "Inventor of C++",
+      desc: "Designed C++ by extending C with object-oriented programming features."
+    },
+    gosling: {
+      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Rfl2iJrrPD2eCg1qzX9eR9D_HgA-2wtvN7RGUsB_QPUZOahJQyH-88nvj1tMyodGpYMOQCBRpNPE6T3ZwFljGqUAX3qWof_s7aYt7XQC&s=10",
+      name: "James Gosling",
+      lang: "Inventor of Java",
+      desc: "Known as the Father of Java, used in Android, enterprise systems, and more."
+    },
+    guido: {
+      photo: "https://en.wikipedia.org/wiki/File:Guido_van_Rossum_in_PyConUS24_(cropped).jpg",
+      name: "Guido van Rossum",
+      lang: "Inventor of Python",
+      desc: "Designed Python focusing on simplicity, readability, and power. Used in AI and automation."
+    },
+    rasmus: {
+      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRC0I7_-l0LBxG1mKUR_C4luGK0jVmQ4P7ZptzoInBDeMZVZP7Ty9u7hAqrepPgDZi42aOX62E17Q0d4hZNMR-i-dLfRJn369-I2891ULe&s=10",
+      name: "Rasmus Lerdorf",
+      lang: "Inventor of PHP",
+      desc: "Created PHP, which powers more than 75% of websites including Facebook and Wikipedia."
+    },
+    eich: {
+      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfh_1IuKJghBlkNbZovEgtCocnykApJe7F6SuQ9AOtsoCbo3T3gJ-kraN-bqIsIXRMk5C311MPQ0JKAj5IP6hydQ77xw9FB801qkpWpC16&s=10",
+      name: "Brendan Eich",
+      lang: "Inventor of JavaScript",
+      desc: "Created JavaScript in just 10 days. Today it is the most widely used web programming language."
+    },
+    matz: {
+      photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3es-60DV_o0tX94b7OFrQuC9pkmzL6Xkkh1hUpFgA4sIqHki4hEBZvRSt2_CXGrll44V4oof6RZvW6fV1x3no2oyI1Q4aiWodcGuqG017&s=10",
+      name: "Yukihiro “Matz” Matsumoto",
+      lang: "Inventor of Ruby",
+      desc: "Developed Ruby focusing on developer happiness and clean elegant syntax."
+    },
+    anders: {
+    photo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn2UvAmdYMic7Tbs3xpjh6kJD1QKw1Wxr_Sw&s",
+     name: "Anders Hejlsberg",
+      lang: "Inventor of C# and TypeScript",
+      desc: "Chief architect at Microsoft who built C# and later created TypeScript."
+    },
+    ken: {
+      photo:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk01aXiQ6IGMr76i75_VR085WZlN-RWMZoIg&s" ,
+      name: "Ken Thompson",
+      lang: "Co-Creator of Go Language",
+      desc: "Helped create the Go programming language and co-developed UNIX."
+    },
+    lattner: {
+      photo: "data:image/jpeg;base64,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",
+      name: "Chris Lattner",
+      lang: "Inventor of Swift",
+      desc: "Created the Swift programming language at Apple, widely used in iOS development."
+    }
+  };
+
+  function showPerson() {
+    const person = document.getElementById("selectPerson").value;
+
+    if (!person) {
+      document.getElementById("output").style.display = "none";
+      return;
+    }
+
+    const data = inventors[person];
+
+    document.getElementById("output").style.display = "block";
+    document.getElementById("pPhoto").src = data.photo;
+    document.getElementById("pName").innerText = data.name;
+    document.getElementById("pLang").innerText = data.lang;
+    document.getElementById("pDesc").innerText = data.desc;
+  }
+</script>
+
+</body>
+</html

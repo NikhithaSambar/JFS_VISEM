@@ -1,0 +1,5 @@
+Git init
+git add.
+git commit -m "git commands"
+git remote add origin <url>
+git push origin main
